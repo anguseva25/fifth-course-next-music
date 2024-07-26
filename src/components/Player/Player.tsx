@@ -1,35 +1,37 @@
-import styles from "@/components/PlayerControl/PlayerControl.module.css"
-
+import styles from "@components/Player/Player.module.css"
+import classNames from "classnames";
 
 const Player = () => {
   return (
-    <div className="player__track-play track-play">
-      <div className="track-play__contain">
-        <div className="track-play__image">
-          <svg className="track-play__svg">
-            <use xlinkHref="img/icon/sprite.svg#icon-note"/>
+    <div className={classNames(styles.playerTrackPlay, styles.trackPlay)}>
+      <div className={styles.trackPlayContain}>
+        <div className={styles.trackPlayImage}>
+          <svg className={styles.trackPlaySvg}>
+            <use xlinkHref="/img/icon/sprite.svg#icon-note"/>
           </svg>
         </div>
-        <div className="track-play__author">
-          <a className="track-play__author-link" href="http://">
+        <div className={styles.trackPlayAuthor}>
+          <a className={styles.trackPlayAuthorLink} href="http://">
             Ты та...
           </a>
         </div>
-        <div className="track-play__album">
-          <a className="track-play__album-link" href="http://">
+        <div className={styles.trackPlayAlbum}>
+          <a className={styles.trackPlayAlbumLink} href="http://">
             Баста
           </a>
         </div>
       </div>
-      <div className="track-play__like-dis">
-        <div className="track-play__like _btn-icon">
-          <svg className="track-play__like-svg">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"/>
+      <div className={styles.trackPlayLikeDis}>
+        <div className={classNames(styles.trackPlayLike, styles._btnIcon)}>
+          <svg className={styles.trackPlayLikeSvg}>
+            <use xlinkHref="/img/icon/sprite.svg#icon-like"/>
           </svg>
         </div>
-        <div className="track-play__dislike _btn-icon">
-          <svg className="track-play__dislike-svg">
-            <use xlinkHref="img/icon/sprite.svg#icon-dislike"/>
+        <div
+          className={classNames(styles.trackPlayDislike, styles._btnIcon)}
+        >
+          <svg className={styles.trackPlayDislikeSvg}>
+            <use xlinkHref="/img/icon/sprite.svg#icon-dislike"/>
           </svg>
         </div>
       </div>
