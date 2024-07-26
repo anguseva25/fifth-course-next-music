@@ -9,6 +9,9 @@
 package-lock.json
 .pnp.js
 .yarn/install-state.gz
+/template/index.html
+/template/signup.html
+/template/signin.html
 
 # testing
 /coverage

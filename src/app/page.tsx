@@ -1,4 +1,3 @@
-
 import SideBar from "@components/SideBar/SideBar";
 import Bar from "@components/Bar/Bar";
 import Playlist from "@components/Playlist/Playlist";
