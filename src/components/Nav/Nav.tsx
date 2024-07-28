@@ -1,9 +1,13 @@
+'use client'
+
 import Image from "next/image";
 import classNames from "classnames";
 import styles from "./Nav.module.css";
+import { useState } from "react";
 
 
 const Nav = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <nav className={classNames(styles.mainNav, styles.nav)}>
       <div className={classNames(styles.navLogo, styles.logo)}>
@@ -15,11 +19,12 @@ const Nav = () => {
           height={17}
         />
       </div>
-      <div className={classNames(styles.navBurger, styles.burger)}>
+      <div onClick={() => setIsOpen((prev) => !prev)} style={{cursor:'pointer'}} className={classNames(styles.navBurger, styles.burger)}>
         <span className={styles.burgerLine}/>
         <span className={styles.burgerLine}/>
         <span className={styles.burgerLine}/>
       </div>
+      {isOpen &&
       <div className={classNames(styles.navMenu, styles.menu)}>
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
@@ -39,6 +44,7 @@ const Nav = () => {
           </li>
         </ul>
       </div>
+      }
     </nav>
   )
 }

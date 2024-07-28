@@ -4,10 +4,23 @@ import Playlist from "@components/Playlist/Playlist";
 import Nav from "@components/Nav/Nav";
 import Search from "@components/Search/Search";
 import Filter from "@components/Filter/Filter";
+import {TrackType} from "@/types/track";
+import {getAllTracks} from "@/API/getAllTracks";
 
 
-export default function Home() {
-  const tumbler = true
+export default async function Home() {
+  let tracks: TrackType[] = [];
+  let errMessage: string;
+
+  try {
+    tracks = await getAllTracks()
+  } catch (error: unknown) {
+    errMessage =
+      error instanceof Error
+        ? "Возникли проблемы при загрузке треков: " + error.message
+        : "Неизвестная ошибка";
+  }
+
   return (
     <div className="wrapper">
       <div className="container">
