@@ -10,7 +10,7 @@ import {getAllTracks} from "@/API/getAllTracks";
 
 export default async function Home() {
   let tracks: TrackType[] = [];
-  let errMessage: string;
+  let errMessage: string = "";
 
   try {
     tracks = await getAllTracks()
@@ -29,8 +29,8 @@ export default async function Home() {
           <div className="main__centerblock centerblock">
             <Search/>
             <h2 className="centerblock__h2">Треки</h2>
-            <Filter/>
-            <Playlist/>
+            <Filter tracks={tracks}/>
+            <Playlist errors={errMessage} tracks={tracks}/>
           </div>
           <SideBar/>
         </main>

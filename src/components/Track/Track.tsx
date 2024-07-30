@@ -1,8 +1,12 @@
 import styles from "@/components/Track/Track.module.css";
 import classNames from "classnames";
+import {TrackType} from "@/types/track";
 
-
-const Track = () => {
+type TrackProps = {
+  track: TrackType,
+}
+const Track = ({track}:TrackProps) => {
+  const {name, author, album} = track;
   return (
     <div className={classNames(styles.playlistItem)}>
       <div className={classNames(styles.playlistTrack, styles.track)}>
@@ -14,15 +18,15 @@ const Track = () => {
           </div>
           <div className={styles.trackTitleText}>
             <span className={styles.trackTitleLink}>
-              Guilt <span className={styles.trackTitleSpan}/>
+              {name} <span className={styles.trackTitleSpan}/>
             </span>
           </div>
         </div>
         <div className={styles.trackAuthor}>
-          <span className={styles.trackAuthorLink}>Nero</span>
+          <span className={styles.trackAuthorLink}>{author}</span>
         </div>
         <div className={styles.trackAlbum}>
-          <span className={styles.trackAlbumLink}>Welcome Reality</span>
+          <span className={styles.trackAlbumLink}>{album}</span>
         </div>
         <div className={styles.trackTime}>
           <svg className={styles.trackTimeSvg}>
