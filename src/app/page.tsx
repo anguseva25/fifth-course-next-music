@@ -1,6 +1,6 @@
 import SideBar from "@components/SideBar/SideBar";
 import Bar from "@components/Bar/Bar";
-import Playlist from "@components/Playlist/Playlist";
+import PlayList from "@components/Playlist/Playlist";
 import Nav from "@components/Nav/Nav";
 import Search from "@components/Search/Search";
 import Filter from "@components/Filter/Filter";
@@ -30,7 +30,7 @@ export default async function Home() {
             <Search/>
             <h2 className="centerblock__h2">Треки</h2>
             <Filter tracks={tracks}/>
-            <Playlist errors={errMessage} tracks={tracks}/>
+            <PlayList errors={errMessage} tracks={tracks}/>
           </div>
           <SideBar/>
         </main>

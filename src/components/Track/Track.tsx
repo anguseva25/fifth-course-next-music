@@ -5,7 +5,7 @@ import {TrackType} from "@/types/track";
 type TrackProps = {
   track: TrackType,
 }
-const Track = ({track}:TrackProps) => {
+const Track = ({ track }:TrackProps) => {
   const {name, author, album} = track;
   return (
     <div className={classNames(styles.playlistItem)}>

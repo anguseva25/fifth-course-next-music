@@ -2,13 +2,14 @@ import Track from "@/components/Track/Track";
 import styles from "@/components/Playlist/Playlist.module.css";
 import classNames from "classnames";
 import {TrackType} from "@/types/track";
-import css from "styled-jsx/css";
+
 
 type PlayListProps = {
   tracks: TrackType[]
-  errors: string
+  errors: string | null
 }
-const PlayList = ({tracks, errors}: PlayListProps) => {
+
+const PlayList = ({ tracks, errors }: PlayListProps) => {
   return (
     <div className={classNames(styles.centerblockContent, styles.playlistContent)}>
       <div className={classNames(styles.contentTitle, styles.playlistTitle)}>
@@ -30,10 +31,9 @@ const PlayList = ({tracks, errors}: PlayListProps) => {
       <div className={classNames(styles.contentPlaylist, styles.playlist)}>
         {errors ?
           <h4 className={styles.error}>{errors}</h4>
-         : tracks.map((track) => <Track track={track} key={track.id} />)}
+        : tracks.map((track) => <Track track={track} key={track.id} />)}
       </div>
     </div>
   )
 }
-
 export default PlayList
