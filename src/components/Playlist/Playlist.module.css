@@ -65,7 +65,7 @@
 .contentPlaylist {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: scroll;
     &::-webkit-scrollbar {
         height: 7px;
         width: 7px;
@@ -76,7 +76,7 @@
     }
 
     &::-webkit-scrollbar-track:hover {
-        background-color: #C2A73C;
+        background-color: deeppink;
     }
 
     &::-webkit-scrollbar-track:active {
@@ -85,11 +85,11 @@
 
     &::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background-color: coral;
+        background-color: deeppink;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background-color: #2EBCB7;
+        background-color: #4B3EC2;
     }
 
     &::-webkit-scrollbar-thumb:active {
