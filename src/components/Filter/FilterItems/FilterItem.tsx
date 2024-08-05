@@ -17,7 +17,7 @@ export function FilterItem({ title, isActive, list, handleFilter }: FilterItemPr
 
   return (
     <div className={styles.filterWrapper}>
-      <div className={classNames(styles.filterButton, styles.buttonAuthor, styles._btnText)} onClick={handleClick}>{title}</div>
+      <div className={classNames(styles.filterButton, styles.buttonAuthor, styles._btnText, {[styles.active]: isActive })} onClick={handleClick}>{title}</div>
       { isActive && (
         <div className={styles.filterPopup}>
           <ul className={styles.filterList}>
