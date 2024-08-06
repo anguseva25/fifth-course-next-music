@@ -3,6 +3,8 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 51px;
+    gap: 10px;
+    text-wrap: nowrap;
 }
 
 .filterTitle {
@@ -10,7 +12,11 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    margin-right: 15px;
+    margin-right: 5px;
+}
+
+.filterWrapper {
+    position: relative;
 }
 
 .filterButton {
@@ -24,22 +30,73 @@
     cursor: pointer;
 }
 
-.buttonAuthor {
-    margin-right: 10px;
-}
-
-.buttonYear {
-    margin-right: 10px;
-}
-
 ._btnText:hover {
     border-color: #d9b6ff;
     color: #d9b6ff;
     cursor: pointer;
 }
-
+.active,
 ._btnText:active {
     border-color: #ad61ff;
     color: #ad61ff;
     cursor: pointer;
+}
+
+.filterPopup {
+    position: absolute;
+    top: 48px;
+    padding: 34px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    background: #313131;
+    text-wrap: nowrap;
+}
+
+.filterList {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-height: 237px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        height: 7px;
+        width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 9px;
+        background-color: #A22FEB;
+    }
+
+    &::-webkit-scrollbar-track:hover {
+        background-color: deeppink;
+    }
+
+    &::-webkit-scrollbar-track:active {
+        background-color: #4B3EC2;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: deeppink;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #2EBCB7;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background-color: deeppink;
+    }
+
+    & li {
+        margin-right: 20px;
+
+        &:hover {
+            text-decoration: underline;
+            color: #A22FEB;
+        }
+    }
 }

@@ -65,7 +65,36 @@
 .contentPlaylist {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        height: 7px;
+        width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 9px;
+        background-color: #A22FEB;
+    }
+
+    &::-webkit-scrollbar-track:hover {
+        background-color: deeppink;
+    }
+
+    &::-webkit-scrollbar-track:active {
+        background-color: #4B3EC2;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: deeppink;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #4B3EC2;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background-color: deeppink;
+    }
 }
 
 .error {
@@ -74,4 +103,9 @@
     font-size: 18px;
     line-height: 24px;
     color: #ffffff;
+}
+
+.error{
+    font-weight: 700;
+    color: coral;
 }

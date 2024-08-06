@@ -1,9 +1,15 @@
 import Track from "@/components/Track/Track";
 import styles from "@/components/Playlist/Playlist.module.css";
 import classNames from "classnames";
+import {TrackType} from "@/types/track";
 
 
-const PlayList = () => {
+type PlayListProps = {
+  tracks: TrackType[]
+  errors: string | null
+}
+
+const PlayList = ({ tracks, errors }: PlayListProps) => {
   return (
     <div className={classNames(styles.centerblockContent, styles.playlistContent)}>
       <div className={classNames(styles.contentTitle, styles.playlistTitle)}>
@@ -23,10 +29,11 @@ const PlayList = () => {
         </div>
       </div>
       <div className={classNames(styles.contentPlaylist, styles.playlist)}>
-        <Track />
+        {errors ?
+          <h4 className={styles.error}>{errors}</h4>
+        : tracks.map((track) => <Track track={track} key={track.id} />)}
       </div>
     </div>
   )
 }
-
 export default PlayList

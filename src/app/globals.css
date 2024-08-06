@@ -84,12 +84,12 @@ body {
 .main {
   flex: 1 1 auto;
   display: flex;
-  /*flex-wrap: wrap;*/
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .main__centerblock {
-  width: auto;
+  width: 600px;
   -webkit-box-flex: 3;
   -ms-flex-positive: 3;
   flex-grow: 3;
