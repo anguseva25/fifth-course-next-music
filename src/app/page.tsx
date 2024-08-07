@@ -6,6 +6,7 @@ import Search from "@components/Search/Search";
 import Filter from "@components/Filter/Filter";
 import {TrackType} from "@/types/track";
 import {getAllTracks} from "@/API/getAllTracks";
+import {CurrentTrackProvider} from "@/contexts/CurrentTrackProvider";
 
 
 export default async function Home() {
@@ -24,17 +25,19 @@ export default async function Home() {
   return (
     <div className="wrapper">
       <div className="container">
-        <main className="main">
-          <Nav/>
-          <div className="main__centerblock centerblock">
-            <Search/>
-            <h2 className="centerblock__h2">Треки</h2>
-            <Filter tracks={tracks}/>
-            <PlayList errors={errMessage} tracks={tracks}/>
-          </div>
-          <SideBar/>
-        </main>
-        <Bar/>
+        <CurrentTrackProvider>
+          <main className="main">
+            <Nav/>
+            <div className="main__centerblock centerblock">
+              <Search/>
+              <h2 className="centerblock__h2">Треки</h2>
+              <Filter tracks={tracks}/>
+              <PlayList errors={errMessage} tracks={tracks}/>
+            </div>
+            <SideBar/>
+          </main>
+          <Bar/>
+        </CurrentTrackProvider>
         <footer className="footer"/>
       </div>
     </div>
