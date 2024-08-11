@@ -4,7 +4,6 @@ import classNames from "classnames";
 type PlayerProps = {
   name:string,
   author:string,
-  album:string
 }
 
 const Player = ({name, author}: PlayerProps) => {

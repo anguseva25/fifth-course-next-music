@@ -13,7 +13,8 @@ const Bar = () => {
         return null;
     }
 
-    const {name, author, album} = currentTrack;
+
+    const {name, author} = currentTrack;
     return (
         <div className={styles.bar}>
             <div className={styles.barContent}>
@@ -21,7 +22,7 @@ const Bar = () => {
                 <div className={styles.barPlayerBlock}>
                     <div className={styles.barPlayer}>
                         <PlayerControls />
-                        <Player name={name} author={author} album={album}  />
+                        <Player name={name} author={author} />
                     </div>
                     <Volume />
                 </div>

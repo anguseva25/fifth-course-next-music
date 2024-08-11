@@ -1,3 +1,5 @@
+'use client'
+
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useState} from "react";
 import {TrackType} from "@/types/track";
 
@@ -19,9 +21,9 @@ export function CurrentTrackProvider({children}: CurrentTrackProviderProps) {
 }
 
 export function useCurrentTrack() {
-   const context = useContext(CurrentTrackContext);
-   if (context === undefined) {
-     throw new Error("useCurrentTrack должен использоваться внутри CurrentTrackProvider");
-   }
+  const context = useContext(CurrentTrackContext);
+  if (context === undefined) {
+    throw new Error("useCurrentTrack должен использоваться внутри CurrentTrackProvider");
+  }
   return context;
 }
