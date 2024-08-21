@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 type PlayerProps = {
   name:string,
-  author:string,
+  author:string
 }
 
 const Player = ({name, author}: PlayerProps) => {
@@ -22,7 +22,7 @@ const Player = ({name, author}: PlayerProps) => {
         </div>
         <div className={styles.trackPlayAlbum}>
           <a className={styles.trackPlayAlbumLink} href="http://">
-            Баста
+            {author}
           </a>
         </div>
       </div>

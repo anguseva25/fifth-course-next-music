@@ -17,6 +17,7 @@ type CurrentTrackProviderProps = {
 
 export function CurrentTrackProvider({children}: CurrentTrackProviderProps) {
   const [currentTrack, setCurrentTrack] = useState<TrackType | null>(null);
+
   return <CurrentTrackContext.Provider value={{currentTrack, setCurrentTrack}}>{children}</CurrentTrackContext.Provider>
 }
 

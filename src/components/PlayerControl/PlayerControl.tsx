@@ -1,7 +1,12 @@
 import styles from "@/components/PlayerControl/PlayerControl.module.css"
 
+type PlayerControlProps = {
+  isPlaying: boolean,
+  onPlay: () => void,
+}
 
-const PlayerControls = () => {
+const PlayerControls = ({isPlaying, onPlay}: PlayerControlProps) => {
+  const icon = isPlaying ? "pause" : "play"
   return (
     <div className={styles.playerControls}>
       <div className={styles.playerBtnPrev}>
@@ -9,9 +14,9 @@ const PlayerControls = () => {
           <use xlinkHref="img/icon/sprite.svg#icon-prev"/>
         </svg>
       </div>
-      <div className={styles.playerBtnPlay}>
+      <div className={styles.playerBtnPlay} onClick={onPlay}>
         <svg className={styles.playerBtnPlaySvg}>
-          <use xlinkHref="img/icon/sprite.svg#icon-play"/>
+          <use xlinkHref={`img/icon/sprite.svg#icon-${icon}`}/>
         </svg>
       </div>
       <div className={styles.playerBtnNext}>

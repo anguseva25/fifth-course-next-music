@@ -1,8 +1,11 @@
 import styles from "@/components/Volume/Volume.module.css";
 import classNames from "classnames";
 
+type VolumeProps = {
+  audio: HTMLAudioElement | null;
+};
 
-const Volume = () => {
+const Volume = ({ audio }: VolumeProps) => {
   return (
     <div className={classNames(styles.barVolumeBlock, styles.volume)}>
       <div className={styles.volumeContent}>
