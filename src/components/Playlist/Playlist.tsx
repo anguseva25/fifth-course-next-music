@@ -29,11 +29,14 @@ const PlayList = ({ tracks, errors }: PlayListProps) => {
         </div>
       </div>
       <div className={classNames(styles.contentPlaylist, styles.playlist)}>
-        {errors ?
-          <h4 className={styles.error}>{errors}</h4>
-        : tracks.map((track) => <Track track={track} key={track.id} />)}
+        {
+          errors
+          ? <h4 className={styles.error}>{errors}</h4>
+          : tracks.map((track) => <Track track={track} key={track.id} />)
+        }
       </div>
     </div>
   )
 }
+
 export default PlayList
