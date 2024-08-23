@@ -7,17 +7,37 @@ import Player from "@/components/Player/Player";
 import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import {useEffect, useRef, useState} from "react";
 import ProgressBar from "@components/Bar/ProgressBar/ProgressBar";
+import {formatTime} from "@/utilities/datetime";
 
 
 const Bar = () => {
     const {currentTrack} = useCurrentTrack();
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [isLooped, setIsLooped] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    if (!currentTrack) {
-        return null;
-    }
+    const duration = audioRef.current?.duration || 0;
+
+    useEffect(() => {
+        if (audioRef.current && currentTrack) {
+            const handleCanPlay = () => {
+                audioRef.current?.play();
+                handlePlay(true);
+            };
+
+            audioRef.current.addEventListener("canplay", handleCanPlay);
+
+            return () => {
+                audioRef.current?.removeEventListener("canplay", handleCanPlay);
+            };
+        }
+    }, [currentTrack]);
+
+    useEffect(() => {
+        if (audioRef.current)
+            audioRef.current.loop = isLooped;
+    }, [isLooped]);
 
     const handlePlay = (doPlay: boolean = !isPlaying) => {
         setIsPlaying(doPlay);
@@ -42,36 +62,41 @@ const Bar = () => {
         }
     };
 
-    const {name, author, track_file} = currentTrack;
-    const duration = audioRef.current?.duration || 0;
+    const handleLoop = () => {
+        setIsLooped(!isLooped);
+    }
 
-    // useEffect(() => {
-    //     if (audioRef.current && currentTrack) {
-    //         const handleCanPlay = () => {
-    //             audioRef.current?.play();
-    //             handlePlay(true);
-    //         };
-    //
-    //         audioRef.current.addEventListener("canplay", handleCanPlay);
-    //
-    //         return () => {
-    //             audioRef.current?.removeEventListener("canplay", handleCanPlay);
-    //         };
-    //     }
-    // }, [currentTrack]);
+    const handleNotImplemented = () => {
+        alert("Еще не реализовано");
+    };
+
+    if (!currentTrack) {
+        return null;
+    }
+
+    const {name, author, track_file} = currentTrack;
 
     return (
         <div className={styles.bar}>
             <div className={styles.barContent}>
+                {
+                    isPlaying && audioRef.current && (
+                        <span className={styles.barTime}>
+                            {formatTime(currentTime)} / {formatTime(duration)}
+                        </span>
+                    )
+                }
                 <audio
                     className={styles.audio}
                     src={track_file}
                     ref={audioRef}
-                    controls />
-                <ProgressBar max={duration} value={currentTime} step={0.01} onChange={handleSeek} />
+                    onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+                    controls
+                />
+                <ProgressBar max={duration} value={currentTime} onChange={handleSeek} />
                 <div className={styles.barPlayerBlock}>
                     <div className={styles.barPlayer}>
-                        <PlayerControls isPlaying={isPlaying} onPlay={switchPlay} />
+                        <PlayerControls isPlaying={isPlaying} isLooped={isLooped} onPlay={switchPlay} onLoop={handleLoop} onDo={handleNotImplemented} />
                         <Player name={name} author={author} />
                     </div>
                     <Volume audio={audioRef.current} />

@@ -30,8 +30,7 @@
   position: relative;
   -webkit-appearance: none;
   width: var(--thumb-width, var(--thumb-height));
-  box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
-  100vmax var(--progress-color);
+  box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax var(--progress-color);
 }
 
 .styledProgressInput::-webkit-slider-runnable-track {
@@ -44,7 +43,7 @@
   height: var(--progress-height);
   background: var(--progress-bg-color);
   border: none;
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .styledProgressInput::-moz-range-thumb {
