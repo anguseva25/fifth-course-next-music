@@ -1,7 +1,12 @@
 import styles from "@components/Player/Player.module.css"
 import classNames from "classnames";
 
-const Player = () => {
+type PlayerProps = {
+  name:string,
+  author:string
+}
+
+const Player = ({name, author}: PlayerProps) => {
   return (
     <div className={classNames(styles.playerTrackPlay, styles.trackPlay)}>
       <div className={styles.trackPlayContain}>
@@ -12,12 +17,12 @@ const Player = () => {
         </div>
         <div className={styles.trackPlayAuthor}>
           <a className={styles.trackPlayAuthorLink} href="http://">
-            Ты та...
+            {name}
           </a>
         </div>
         <div className={styles.trackPlayAlbum}>
           <a className={styles.trackPlayAlbumLink} href="http://">
-            Баста
+            {author}
           </a>
         </div>
       </div>

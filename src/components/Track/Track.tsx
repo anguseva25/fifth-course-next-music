@@ -1,14 +1,24 @@
+'use client'
+
 import styles from "@/components/Track/Track.module.css";
 import classNames from "classnames";
 import {TrackType} from "@/types/track";
+import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 
 type TrackProps = {
   track: TrackType,
 }
+
 const Track = ({ track }:TrackProps) => {
+  const {setCurrentTrack} = useCurrentTrack();
   const {name, author, album} = track;
+
+  const handleTrackClick = () => {
+    setCurrentTrack(track)
+  }
+
   return (
-    <div className={classNames(styles.playlistItem)}>
+    <div onClick={handleTrackClick} className={classNames(styles.playlistItem)}>
       <div className={classNames(styles.playlistTrack, styles.track)}>
         <div className={styles.trackTitle}>
           <div className={styles.trackTitleImage}>

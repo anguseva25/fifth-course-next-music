@@ -78,8 +78,6 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    display: flex;
-    align-items: center;
 }
 
 .playerBtnShuffle:hover svg {
@@ -103,4 +101,9 @@
     height: 12px;
     fill: transparent;
     stroke: #696969;
+}
+
+.active svg {
+    fill: #fff;
+    stroke: #fff;
 }
