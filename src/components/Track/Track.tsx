@@ -4,6 +4,7 @@ import styles from "@/components/Track/Track.module.css";
 import classNames from "classnames";
 import {TrackType} from "@/types/track";
 import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
+import {useAppDispatch} from "@/hooks";
 
 type TrackProps = {
   track: TrackType,
@@ -12,6 +13,8 @@ type TrackProps = {
 const Track = ({ track }:TrackProps) => {
   const {setCurrentTrack} = useCurrentTrack();
   const {name, author, album} = track;
+
+  const dispatch = useAppDispatch();
 
   const handleTrackClick = () => {
     setCurrentTrack(track)
