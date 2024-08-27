@@ -3,18 +3,21 @@ import {TrackType} from "@/types/track";
 
 type PlaylistType =  {
     currentTrack: null | TrackType;
+    currentPlaylist: TrackType[];
 }
 
 const initialState: PlaylistType = {
     currentTrack: null,
+    currentPlaylist: [],
 };
 
 const playlistSlice = createSlice({
     name: "playlist",
     initialState,
     reducers: {
-        setCurrentTrack: (state, action: PayloadAction<TrackType>) => {
-            state.currentTrack = action.payload;
+        setCurrentTrack: (state, action: PayloadAction<{ currentTrack: TrackType, currentPlaylist: TrackType[] }>) => {
+            state.currentTrack = action.payload.currentTrack;
+            state.currentPlaylist = action.payload.currentPlaylist;
         },
     },
 });

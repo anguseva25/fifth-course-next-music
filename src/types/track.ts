@@ -12,4 +12,6 @@ export type TrackType = {
   logo: string | null,
   track_file: string,
   stared_user: UserType[],
-}
+};
+
+export type TrackListType = TrackType[];

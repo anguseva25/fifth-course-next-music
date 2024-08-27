@@ -32,7 +32,7 @@ const PlayList = ({ tracks, errors }: PlayListProps) => {
         {
           errors
           ? <h4 className={styles.error}>{errors}</h4>
-          : tracks.map((track) => <Track track={track} key={track.id} />)
+          : tracks.map((track) => <Track track={track} key={track.id} playlist={tracks}/>)
         }
       </div>
     </div>

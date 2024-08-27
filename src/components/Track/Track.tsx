@@ -2,22 +2,24 @@
 
 import styles from "@/components/Track/Track.module.css";
 import classNames from "classnames";
-import {TrackType} from "@/types/track";
-import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
+import {TrackType, TrackListType} from "@/types/track";
 import {useAppDispatch} from "@/hooks";
+import {setCurrentTrack} from "@/store/features/playlistSlice";
 
 type TrackProps = {
   track: TrackType,
+  playlist: TrackListType;
 }
 
-const Track = ({ track }:TrackProps) => {
-  const {setCurrentTrack} = useCurrentTrack();
+const Track = ({ track, playlist }:TrackProps) => {
   const {name, author, album} = track;
 
   const dispatch = useAppDispatch();
+  // const trackCurrent = useAppSelector((state) => state.playlist.currentTrack);
+
 
   const handleTrackClick = () => {
-    setCurrentTrack(track)
+    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: playlist}))
   }
 
   return (
