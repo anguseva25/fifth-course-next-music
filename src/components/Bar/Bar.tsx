@@ -4,14 +4,14 @@ import styles from "@/components/Bar/Bar.module.css";
 import Volume from "@/components/Volume/Volume";
 import PlayerControls from "@/components/PlayerControl/PlayerControl";
 import Player from "@/components/Player/Player";
-import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import {useEffect, useRef, useState} from "react";
 import ProgressBar from "@components/Bar/ProgressBar/ProgressBar";
 import {formatTime} from "@/utilities/datetime";
+import {useAppSelector} from "@/hooks";
 
 
 const Bar = () => {
-    const {currentTrack} = useCurrentTrack();
+    const currentTrack = useAppSelector(state => state.playlist.currentTrack);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [isLooped, setIsLooped] = useState<boolean>(false);

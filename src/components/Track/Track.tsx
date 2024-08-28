@@ -3,7 +3,7 @@
 import styles from "@/components/Track/Track.module.css";
 import classNames from "classnames";
 import {TrackType, TrackListType} from "@/types/track";
-import {useAppDispatch} from "@/hooks";
+import {useAppDispatch, useAppSelector} from "@/hooks";
 import {setCurrentTrack} from "@/store/features/playlistSlice";
 
 type TrackProps = {
@@ -15,11 +15,11 @@ const Track = ({ track, playlist }:TrackProps) => {
   const {name, author, album} = track;
 
   const dispatch = useAppDispatch();
-  // const trackCurrent = useAppSelector((state) => state.playlist.currentTrack);
-
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+  const isCurrentTrack = currentTrack?.id === track.id;
 
   const handleTrackClick = () => {
-    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: playlist}))
+    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: playlist }))
   }
 
   return (
@@ -31,6 +31,10 @@ const Track = ({ track, playlist }:TrackProps) => {
               <use xlinkHref="/img/icon/sprite.svg#icon-note"/>
             </svg>
           </div>
+          {
+            isCurrentTrack
+              && <div className={styles.pulsationPoint} />
+          }
           <div className={styles.trackTitleText}>
             <span className={styles.trackTitleLink}>
               {name} <span className={styles.trackTitleSpan}/>
