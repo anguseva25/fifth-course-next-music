@@ -15,8 +15,8 @@ const Track = ({ track, playlist }:TrackProps) => {
   const {name, author, album} = track;
 
   const dispatch = useAppDispatch();
-  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
-  const isCurrentTrack = currentTrack?.id === track.id;
+  const {currentTrack, isPlaying} = useAppSelector((state) => state.playlist);
+  const isCurrentTrack = Boolean(currentTrack) && currentTrack?._id === track._id;
 
   const handleTrackClick = () => {
     dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: playlist }))
@@ -30,11 +30,11 @@ const Track = ({ track, playlist }:TrackProps) => {
             <svg className={styles.trackTitleSvg}>
               <use xlinkHref="/img/icon/sprite.svg#icon-note"/>
             </svg>
+            {
+              isCurrentTrack
+                && <div className={classNames(styles.pulsationPoint, { [styles.animated]: isPlaying})} />
+            }
           </div>
-          {
-            isCurrentTrack
-              && <div className={styles.pulsationPoint} />
-          }
           <div className={styles.trackTitleText}>
             <span className={styles.trackTitleLink}>
               {name} <span className={styles.trackTitleSpan}/>
