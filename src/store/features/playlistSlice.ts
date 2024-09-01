@@ -32,7 +32,6 @@ const playlistSlice = createSlice({
             }
         },
         setNextTrack(state) {
-            // const playList = state.isMixed ? state.mixedPlaylist : state.currentPlaylist;
             const index = state.mixedPlaylist.findIndex((track) => track._id === state.currentTrack?._id );
             const track = state.mixedPlaylist[index+1];
 
@@ -41,7 +40,6 @@ const playlistSlice = createSlice({
             }
         },
         setPrevTrack(state) {
-            // const playList = state.isMixed ? state.mixedPlaylist : state.currentPlaylist;
             const index = state.mixedPlaylist.findIndex((track) => track._id === state.currentTrack?._id);
             const track = state.mixedPlaylist[index - 1];
 
