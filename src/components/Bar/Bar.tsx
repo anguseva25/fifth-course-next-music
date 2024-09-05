@@ -4,16 +4,17 @@ import styles from "@/components/Bar/Bar.module.css";
 import Volume from "@/components/Volume/Volume";
 import PlayerControls from "@/components/PlayerControl/PlayerControl";
 import Player from "@/components/Player/Player";
-import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import {useEffect, useRef, useState} from "react";
 import ProgressBar from "@components/Bar/ProgressBar/ProgressBar";
 import {formatTime} from "@/utilities/datetime";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {setIsMixed, setIsPlaying, setNextTrack, setPrevTrack} from "@/store/features/playlistSlice";
 
 
 const Bar = () => {
-    const {currentTrack} = useCurrentTrack();
+    const {currentTrack, isPlaying, isMixed} = useAppSelector(state => state.playlist);
+    const dispatch = useAppDispatch();
     const [currentTime, setCurrentTime] = useState<number>(0);
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [isLooped, setIsLooped] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -28,9 +29,15 @@ const Bar = () => {
 
             audioRef.current.addEventListener("canplay", handleCanPlay);
 
-            return () => {
-                audioRef.current?.removeEventListener("canplay", handleCanPlay);
-            };
+            return () => audioRef.current?.removeEventListener("canplay", handleCanPlay);
+        }
+    }, [currentTrack]);
+
+    useEffect(() => {
+        if (audioRef.current && currentTrack) {
+            audioRef.current.addEventListener("ended", handleNextTrack);
+
+            return () => audioRef.current?.removeEventListener("ended", handleNextTrack);
         }
     }, [currentTrack]);
 
@@ -40,7 +47,19 @@ const Bar = () => {
     }, [isLooped]);
 
     const handlePlay = (doPlay: boolean = !isPlaying) => {
-        setIsPlaying(doPlay);
+        dispatch(setIsPlaying(doPlay));
+    }
+
+    const handlePrevTrack = () => {
+        dispatch(setPrevTrack());
+    }
+
+    const handleNextTrack = () => {
+        dispatch(setNextTrack());
+    }
+
+    const handleSetMixed = () => {
+        dispatch(setIsMixed(!isMixed));
     }
 
     const switchPlay = () => {
@@ -53,7 +72,7 @@ const Bar = () => {
                 audio.play();
             }
         }
-        setIsPlaying((prev) => !prev);
+        dispatch(setIsPlaying(!isPlaying));
     }
 
     const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,10 +84,6 @@ const Bar = () => {
     const handleLoop = () => {
         setIsLooped(!isLooped);
     }
-
-    const handleNotImplemented = () => {
-        alert("Еще не реализовано");
-    };
 
     if (!currentTrack) {
         return null;
@@ -96,8 +111,8 @@ const Bar = () => {
                 <ProgressBar max={duration} value={currentTime} onChange={handleSeek} />
                 <div className={styles.barPlayerBlock}>
                     <div className={styles.barPlayer}>
-                        <PlayerControls isPlaying={isPlaying} isLooped={isLooped} onPlay={switchPlay} onLoop={handleLoop} onDo={handleNotImplemented} />
-                        <Player name={name} author={author} />
+                        <PlayerControls isPlaying={isPlaying} isLooped={isLooped} isMixed={isMixed} onPlay={switchPlay} onNext={handleNextTrack} onPrev={handlePrevTrack} onLoop={handleLoop} onMix={handleSetMixed} />
+                        <Player name={name} author={author}/>
                     </div>
                     <Volume audio={audioRef.current} />
                 </div>

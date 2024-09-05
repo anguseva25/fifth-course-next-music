@@ -2,7 +2,7 @@ import {UserType} from "@/types/user";
 
 
 export type TrackType = {
-  id: number,
+  _id: number,
   name: string,
   author: string,
   release_date: string,
@@ -12,4 +12,6 @@ export type TrackType = {
   logo: string | null,
   track_file: string,
   stared_user: UserType[],
-}
+};
+
+export type TrackListType = TrackType[];
