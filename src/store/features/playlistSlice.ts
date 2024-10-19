@@ -1,5 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TrackType} from "@/types/track";
+import {fetchFavoriteTracks} from "@/API/getAllTracks";
+
+
+export const getFavoriteTracks = createAsyncThunk(
+  "playlist/getFavoriteTracks",
+  async (accessToken: string) => {
+      const favoriteTracks = await fetchFavoriteTracks(accessToken);
+      return favoriteTracks;
+  }
+);
+
 
 type PlaylistType = {
     currentTrack: null | TrackType;
@@ -7,6 +18,7 @@ type PlaylistType = {
     mixedPlaylist: TrackType[];
     isPlaying: boolean;
     isMixed: boolean;
+    likedTracks: number[];
 }
 
 const initialState: PlaylistType = {
@@ -15,6 +27,7 @@ const initialState: PlaylistType = {
     mixedPlaylist: [],
     isPlaying: false,
     isMixed: false,
+    likedTracks: [],
 };
 
 const playlistSlice = createSlice({
@@ -47,6 +60,16 @@ const playlistSlice = createSlice({
                 state.currentTrack = track;
             }
         },
+        likeTrack: (state, action: PayloadAction<number>) => {
+            if (!state.likedTracks.includes(action.payload)) {
+                state.likedTracks.push(action.payload);
+            }
+        },
+        dislikeTrack: (state, action: PayloadAction<number>) => {
+            state.likedTracks = state.likedTracks.filter(
+              (id) => id !== action.payload
+            );
+        },
         setIsPlaying(state, action: PayloadAction<boolean>) {
             state.isPlaying = action.payload;
         },
@@ -60,7 +83,13 @@ const playlistSlice = createSlice({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder
+          .addCase(getFavoriteTracks.fulfilled, (state, action) => {
+              state.likedTracks = action.payload.map((track: TrackType) => track._id);
+          });
+    },
 });
 
-export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, setIsMixed } = playlistSlice.actions;
+export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, likeTrack, dislikeTrack, setIsMixed } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

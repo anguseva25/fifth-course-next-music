@@ -4,10 +4,17 @@ import Image from "next/image";
 import classNames from "classnames";
 import styles from "./Nav.module.css";
 import { useState } from "react";
+import {useRouter} from "next/navigation";
 
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  function handleLogIn() {
+    router.push("/authorization-In");
+  }
+
   return (
     <nav className={classNames(styles.mainNav, styles.nav)}>
       <div className={classNames(styles.navLogo, styles.logo)}>
@@ -38,7 +45,7 @@ const Nav = () => {
             </a>
           </li>
           <li className={styles.menuItem}>
-            <a href="../signin.html" className={styles.menuLink}>
+            <a href="#" className={styles.menuLink} onClick={handleLogIn}>
               Войти
             </a>
           </li>

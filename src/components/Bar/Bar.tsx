@@ -89,7 +89,7 @@ const Bar = () => {
         return null;
     }
 
-    const {name, author, track_file} = currentTrack;
+    const {_id, name, author, track_file} = currentTrack;
 
     return (
         <div className={styles.bar}>
@@ -112,12 +112,13 @@ const Bar = () => {
                 <div className={styles.barPlayerBlock}>
                     <div className={styles.barPlayer}>
                         <PlayerControls isPlaying={isPlaying} isLooped={isLooped} isMixed={isMixed} onPlay={switchPlay} onNext={handleNextTrack} onPrev={handlePrevTrack} onLoop={handleLoop} onMix={handleSetMixed} />
-                        <Player name={name} author={author}/>
+                        <Player name={name} author={author} id={_id}/>
                     </div>
                     <Volume audio={audioRef.current} />
                 </div>
             </div>
-        </div>)
+        </div>
+    )
 }
 
 export default Bar
