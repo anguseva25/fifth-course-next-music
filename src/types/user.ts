@@ -5,3 +5,11 @@ export type UserType = {
   last_name: string,
   email: string,
 }
+
+export type FormDataType = {
+  email: string;
+  password: string;
+  username: string;
+}
+
+export type ShortFormDataType = Omit<FormDataType, "username">

@@ -1,12 +1,17 @@
+"use client"
 import styles from "@components/Player/Player.module.css"
 import classNames from "classnames";
+import {useLikeTrack} from "@/hooks/useLikeTrack";
+import {TrackType} from "@/types/track";
 
 type PlayerProps = {
-  name:string,
-  author:string
+  track: TrackType,
 }
 
-const Player = ({name, author}: PlayerProps) => {
+const Player = ({track}: PlayerProps) => {
+  const {name, author} = track
+  const { isLiked, handleLike } = useLikeTrack(track)
+
   return (
     <div className={classNames(styles.playerTrackPlay, styles.trackPlay)}>
       <div className={styles.trackPlayContain}>
@@ -27,16 +32,9 @@ const Player = ({name, author}: PlayerProps) => {
         </div>
       </div>
       <div className={styles.trackPlayLikeDis}>
-        <div className={classNames(styles.trackPlayLike, styles._btnIcon)}>
-          <svg className={styles.trackPlayLikeSvg}>
+        <div className={classNames(styles.trackPlayLike, styles._btnIcon)} onClick={handleLike}>
+          <svg className={classNames(styles.trackPlayLikeSvg, {[styles.active]: isLiked})}>
             <use xlinkHref="/img/icon/sprite.svg#icon-like"/>
-          </svg>
-        </div>
-        <div
-          className={classNames(styles.trackPlayDislike, styles._btnIcon)}
-        >
-          <svg className={styles.trackPlayDislikeSvg}>
-            <use xlinkHref="/img/icon/sprite.svg#icon-dislike"/>
           </svg>
         </div>
       </div>

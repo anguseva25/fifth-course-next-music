@@ -1,13 +1,23 @@
-'use client'
+"use client"
 
 import Image from "next/image";
 import classNames from "classnames";
 import styles from "./Nav.module.css";
 import { useState } from "react";
+import Link from "next/link";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {logout} from "@/store/features/userSlice";
 
 
 const Nav = () => {
+  const dispatch = useAppDispatch();
+  const tokens = useAppSelector((state) => state.user.tokens);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function handleQuit() {
+    dispatch(logout());
+  }
+
   return (
     <nav className={classNames(styles.mainNav, styles.nav)}>
       <div className={classNames(styles.navLogo, styles.logo)}>
@@ -28,20 +38,32 @@ const Nav = () => {
       <div className={classNames(styles.navMenu, styles.menu)}>
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
-            <a href="#" className={styles.menuLink}>
+            <Link href="/tracks" className={styles.menuLink}>
               Главное
-            </a>
+            </Link>
           </li>
-          <li className={styles.menuItem}>
-            <a href="#" className={styles.menuLink}>
-              Мой плейлист
-            </a>
-          </li>
-          <li className={styles.menuItem}>
-            <a href="../signin.html" className={styles.menuLink}>
-              Войти
-            </a>
-          </li>
+          {
+            tokens.access ? (
+              <>
+                <li className={styles.menuItem}>
+                  <Link href="/tracks/favorites" className={styles.menuLink}>
+                    Мой любимый плейлист
+                  </Link>
+                </li>
+                <li className={styles.menuItem}>
+                  <Link href="#" className={styles.menuLink} onClick={handleQuit}>
+                    Выйти
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className={styles.menuItem}>
+                <Link href="/authorization-In" className={styles.menuLink}>
+                  Войти
+                </Link>
+              </li>
+            )
+          }
         </ul>
       </div>
       }
