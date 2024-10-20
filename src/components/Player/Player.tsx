@@ -1,15 +1,17 @@
+"use client"
 import styles from "@components/Player/Player.module.css"
 import classNames from "classnames";
 import {useLikeTrack} from "@/hooks/useLikeTrack";
+import {TrackType} from "@/types/track";
 
 type PlayerProps = {
-  name:string,
-  author:string,
-  id: number,
+  track: TrackType,
 }
 
-const Player = ({name, author, id}: PlayerProps) => {
-  const { isLiked, handleLike } = useLikeTrack(id)
+const Player = ({track}: PlayerProps) => {
+  const {name, author} = track
+  const { isLiked, handleLike } = useLikeTrack(track)
+
   return (
     <div className={classNames(styles.playerTrackPlay, styles.trackPlay)}>
       <div className={styles.trackPlayContain}>

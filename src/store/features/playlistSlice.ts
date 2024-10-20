@@ -14,34 +14,45 @@ export const getFavoriteTracks = createAsyncThunk(
 
 type PlaylistType = {
     currentTrack: null | TrackType;
-    currentPlaylist: TrackType[];
+    initialPlaylist: TrackType[];
+    likedTracks: TrackType[];
+    visiblePlaylist: TrackType[];
+    onPlayPlaylist: TrackType[];
     mixedPlaylist: TrackType[];
     isPlaying: boolean;
     isMixed: boolean;
-    likedTracks: number[];
 }
 
 const initialState: PlaylistType = {
     currentTrack: null,
-    currentPlaylist: [],
+    initialPlaylist: [],
+    likedTracks: [],
+    visiblePlaylist: [],
+    onPlayPlaylist: [],
     mixedPlaylist: [],
     isPlaying: false,
     isMixed: false,
-    likedTracks: [],
 };
 
 const playlistSlice = createSlice({
     name: "playlist",
     initialState,
     reducers: {
-        setCurrentTrack(state, action: PayloadAction<{ currentTrack: TrackType, currentPlaylist: TrackType[] }>) {
-            state.currentTrack = action.payload.currentTrack;
-            state.currentPlaylist = action.payload.currentPlaylist;
+        setInitialPlaylist: (state, action: PayloadAction<TrackType[]>) => {
+            state.initialPlaylist = action.payload;
+            state.visiblePlaylist = action.payload;
+        },
+        setVisiblePlaylist: (state, action: PayloadAction<TrackType[]>) => {
+            state.visiblePlaylist = action.payload;
+        },
+        setCurrentTrack(state, action: PayloadAction<{ track: TrackType, playlist: TrackType[] }>) {
+            state.currentTrack = action.payload.track;
+            state.onPlayPlaylist = action.payload.playlist;
 
             if (state.isMixed) {
-                state.mixedPlaylist = state.currentPlaylist.toSorted(() => 0.5 - Math.random());
+                state.mixedPlaylist = state.onPlayPlaylist.toSorted(() => 0.5 - Math.random());
             } else {
-                state.mixedPlaylist = state.currentPlaylist
+                state.mixedPlaylist = state.onPlayPlaylist
             }
         },
         setNextTrack(state) {
@@ -60,14 +71,12 @@ const playlistSlice = createSlice({
                 state.currentTrack = track;
             }
         },
-        likeTrack: (state, action: PayloadAction<number>) => {
-            if (!state.likedTracks.includes(action.payload)) {
-                state.likedTracks.push(action.payload);
-            }
+        likeTrack: (state, action: PayloadAction<TrackType>) => {
+            state.likedTracks.push(action.payload);
         },
-        dislikeTrack: (state, action: PayloadAction<number>) => {
+        dislikeTrack: (state, action: PayloadAction<TrackType>) => {
             state.likedTracks = state.likedTracks.filter(
-              (id) => id !== action.payload
+              (track) => track._id !== action.payload._id
             );
         },
         setIsPlaying(state, action: PayloadAction<boolean>) {
@@ -77,19 +86,19 @@ const playlistSlice = createSlice({
             state.isMixed = action.payload;
 
             if (state.isMixed) {
-                state.mixedPlaylist = state.currentPlaylist.toSorted(() => 0.5 - Math.random());
+                state.mixedPlaylist = state.onPlayPlaylist.toSorted(() => 0.5 - Math.random());
             } else {
-                state.mixedPlaylist = state.currentPlaylist
+                state.mixedPlaylist = state.onPlayPlaylist
             }
         },
     },
     extraReducers: (builder) => {
         builder
           .addCase(getFavoriteTracks.fulfilled, (state, action) => {
-              state.likedTracks = action.payload.map((track: TrackType) => track._id);
+              state.likedTracks = action.payload;
           });
     },
 });
 
-export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, likeTrack, dislikeTrack, setIsMixed } = playlistSlice.actions;
+export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, likeTrack, dislikeTrack, setIsMixed, setVisiblePlaylist, setInitialPlaylist } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

@@ -4,15 +4,16 @@ import {
   dislikeTrack as dislikeTrackAction,
 } from "@/store/features/playlistSlice";
 import { dislikeTrack, likeTrack} from "@/API/getAllTracks";
+import {TrackType} from "@/types/track";
 
-export const useLikeTrack = (trackId: number) => {
+export const useLikeTrack = (track: TrackType) => {
   const dispatch = useAppDispatch();
 
   const tokens = useAppSelector((state) => state.user.tokens);
   const user = useAppSelector((state) => state.user.user);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
 
-  const isLiked = likedTracks.includes(trackId);
+  const isLiked = likedTracks.find((item) => item._id === track._id);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement | SVGSVGElement, MouseEvent>
@@ -27,14 +28,14 @@ export const useLikeTrack = (trackId: number) => {
 
     try {
       await action({
-        trackId,
+        trackId: track._id,
         access: tokens.access,
         refresh: tokens.refresh,
       });
       if (isLiked) {
-        dispatch(dislikeTrackAction(trackId));
+        dispatch(dislikeTrackAction(track));
       } else {
-        dispatch(likeTrackAction(trackId));
+        dispatch(likeTrackAction(track));
       }
     } catch (error) {
       console.error(error);

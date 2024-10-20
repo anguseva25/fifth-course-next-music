@@ -18,10 +18,10 @@ const Track = ({ track, playlist }:TrackProps) => {
   const dispatch = useAppDispatch();
   const {currentTrack, isPlaying} = useAppSelector((state) => state.playlist);
   const isCurrentTrack = Boolean(currentTrack) && currentTrack?._id === track._id;
-  const { isLiked, handleLike } = useLikeTrack(trackId)
+  const { isLiked, handleLike } = useLikeTrack(track)
 
   const handleTrackClick = () => {
-    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: playlist }))
+    dispatch(setCurrentTrack({ track: track, playlist: playlist }))
   }
 
   return (
