@@ -13,7 +13,7 @@ export const useLikeTrack = (track: TrackType) => {
   const user = useAppSelector((state) => state.user.user);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
 
-  const isLiked = likedTracks.find((item) => item._id === track._id);
+  const isLiked = Boolean(tokens.access) && likedTracks.find((item) => item._id === track._id);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement | SVGSVGElement, MouseEvent>

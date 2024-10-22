@@ -20,7 +20,7 @@ export const getUser = createAsyncThunk(
     const json = await response.json();
 
     if (!response.ok) {
-      throw new Error(json.detail);
+      throw new Error(json.message);
     }
 
     return json as UserType;
@@ -45,7 +45,7 @@ export const createUser = createAsyncThunk(
     const json = await response.json();
 
     if (!response.ok) {
-      throw new Error(json.detail);
+      throw new Error(json.message);
     }
 
     return json as UserType;
@@ -66,11 +66,12 @@ export const getTokens = createAsyncThunk(
       },
     });
 
+    const json = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Возникла ошибка! Статус: ${response.status}`);
+      throw new Error(json.message);
     }
 
-    const json = await response.json();
     return json;
   }
 );
@@ -78,16 +79,16 @@ export const getTokens = createAsyncThunk(
 type UserStateType = {
   user: null | UserType;
   tokens: {
-    access: string | null;
-    refresh: string | null;
+    access: string;
+    refresh: string;
   };
 };
 
 const initialState: UserStateType = {
   user: null,
   tokens: {
-    access: null,
-    refresh: null,
+    access: "",
+    refresh: "",
   },
 };
 
@@ -97,8 +98,8 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.tokens.access = null;
-      state.tokens.refresh = null;
+      state.tokens.access = "";
+      state.tokens.refresh = "";
     },
   },
   extraReducers: (builder) => {

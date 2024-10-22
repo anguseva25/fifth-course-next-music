@@ -8,21 +8,21 @@ import {setInitialPlaylist, setVisiblePlaylist} from "@/store/features/playlistS
 import {useAppSelector} from "@/hooks";
 
 type Props = {
-  thereAreAllTracks: boolean,
+  allTracks: TrackType[] | null,
   tracks: TrackType[],
   errMessage: string,
   title: string,
 };
 
-export default function PageContent({thereAreAllTracks, tracks, errMessage, title}: Props) {
+export default function PageContent({allTracks, tracks, errMessage, title}: Props) {
   const dispatch = useDispatch();
   const {visiblePlaylist} = useAppSelector((state) => state.playlist);
 
   useEffect(() => {
-    if (thereAreAllTracks)
-      dispatch(setInitialPlaylist(tracks));
+    if (allTracks)
+      dispatch(setInitialPlaylist(allTracks));
     dispatch(setVisiblePlaylist(tracks));
-  }, [thereAreAllTracks, tracks]);
+  }, [allTracks, tracks]);
 
   return (
     <>

@@ -1,8 +1,9 @@
 import {fetchWithAuth} from "@/utilities/fetchWithAuth";
+import {TrackType} from "@/types/track";
 
 const hostGet = "https://webdev-music-003b5b991590.herokuapp.com/catalog";
 
-export async function getAllTracks() {
+export async function getAllTracks(): Promise<TrackType[]> {
   const res = await fetch(`${hostGet}/track/all/`,{
     method: "GET"})
   const data = await res.json()

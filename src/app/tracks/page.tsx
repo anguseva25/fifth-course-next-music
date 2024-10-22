@@ -17,6 +17,6 @@ export default async function Home() {
   }
 
   return (
-    <PageContent thereAreAllTracks={true} tracks={tracks} errMessage={errMessage} title={"Треки"}/>
+    <PageContent allTracks={tracks} tracks={tracks} errMessage={errMessage} title={"Треки"}/>
   );
 }

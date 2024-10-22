@@ -40,7 +40,7 @@ export default function SigninPage() {
 
       router.push("/");
     } catch (error: unknown) {
-      if (error instanceof Error)
+      if (error && (error instanceof Error || typeof error === "object" && error.name === 'Error'))
         setError(error.message);
       else
         setError("Неизвестная ошибка");
