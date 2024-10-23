@@ -1,15 +1,29 @@
+'use client'
+
 import Image from "next/image";
-import styles from "./SideBar.module.css"
+import styles from "./SideBar.module.css";
+import {logout} from "@/store/features/userSlice";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import useInitializeLikedTracks from "@/hooks/useInitializeLikedTracks";
 
 
 const SideBar = () => {
+  useInitializeLikedTracks();
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
+
+  function handleQuit() {
+    dispatch(logout());
+  }
+
   return (
     <div className={styles.mainSidebar}>
       <div className={styles.sidebarPersonal}>
         <p className={styles.sidebarPersonalName}>
-          Sergey.Ivanov
+          {user?.username}
         </p>
-        <div className={styles.sidebarIcon}>
+        <div className={styles.sidebarIcon} onClick={handleQuit}>
           <svg>
             <use xlinkHref="img/icon/sprite.svg#logout"/>
           </svg>
