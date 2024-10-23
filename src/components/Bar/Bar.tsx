@@ -114,7 +114,7 @@ const Bar = () => {
                         <PlayerControls isPlaying={isPlaying} isLooped={isLooped} isMixed={isMixed} onPlay={switchPlay} onNext={handleNextTrack} onPrev={handlePrevTrack} onLoop={handleLoop} onMix={handleSetMixed} />
                         <Player track={currentTrack}/>
                     </div>
-                    <Volume audio={audioRef.current} />
+                    <Volume audioRef={audioRef} />
                 </div>
             </div>
         </div>
