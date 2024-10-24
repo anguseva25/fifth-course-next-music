@@ -160,6 +160,14 @@ const playlistSlice = createSlice({
                 });
             }
         },
+        clearFilters: (state) => {
+            state.filterOptions = {
+                author:[],
+                searchValue: "",
+                year: "",
+                genre: [],
+            };
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -169,5 +177,5 @@ const playlistSlice = createSlice({
     },
 });
 
-export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, likeTrack, dislikeTrack, setIsMixed, setVisiblePlaylist, setInitialPlaylist, setFilters } = playlistSlice.actions;
+export const { setCurrentTrack, setIsPlaying, setNextTrack, setPrevTrack, likeTrack, dislikeTrack, setIsMixed, setVisiblePlaylist, setInitialPlaylist, setFilters, clearFilters } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

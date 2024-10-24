@@ -48,7 +48,7 @@ export const createUser = createAsyncThunk(
       throw new Error(json.message);
     }
 
-    return json as UserType;
+    return json.result as UserType;
   }
 );
 
@@ -107,9 +107,11 @@ const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action: PayloadAction<UserType>) => {
         state.user = action.payload;
       })
+      .addCase(createUser.fulfilled, (state, action: PayloadAction<UserType>) => {
+        state.user = action.payload;
+      })
       .addCase(
         getTokens.fulfilled, (state, action: PayloadAction<{ access: string; refresh: string }>) => {
-          console.log("test", action.payload)
           state.tokens.access = action.payload.access;
           state.tokens.refresh = action.payload.refresh;
         }

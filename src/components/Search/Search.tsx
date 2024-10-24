@@ -2,14 +2,19 @@
 
 import classNames from "classnames";
 import styles from "@/components/Search/Search.module.css"
-import {useState} from "react";
-import {useAppDispatch} from "@/hooks";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "@/hooks";
 import {setFilters} from "@/store/features/playlistSlice";
 
 
 const Search = () => {
   const dispatch = useAppDispatch();
+  const filterText = useAppSelector((state) => state.playlist.filterOptions.searchValue);
   const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    setSearchText(filterText)
+  }, [filterText])
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchText(e.target.value);

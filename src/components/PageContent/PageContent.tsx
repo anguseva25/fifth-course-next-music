@@ -4,7 +4,7 @@ import Filter from "@components/Filter/Filter";
 import {TrackType} from "@/types/track";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {setInitialPlaylist, setVisiblePlaylist} from "@/store/features/playlistSlice";
+import {clearFilters, setInitialPlaylist, setVisiblePlaylist} from "@/store/features/playlistSlice";
 import {useAppSelector} from "@/hooks";
 
 type Props = {
@@ -22,6 +22,7 @@ export default function PageContent({allTracks, tracks, errMessage, title}: Prop
     if (allTracks)
       dispatch(setInitialPlaylist(allTracks));
     dispatch(setVisiblePlaylist(tracks));
+    dispatch(clearFilters())
   }, [allTracks, tracks]);
 
   return (
