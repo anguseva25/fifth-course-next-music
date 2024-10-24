@@ -20,11 +20,6 @@ export default function SigninPage() {
     password: "",
   });
 
-  // const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  //   e.preventDefault();
-  //   queryFn();
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
