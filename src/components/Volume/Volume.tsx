@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import {RefObject, useEffect, useState} from "react";
 import styles from "@/components/Volume/Volume.module.css";
 import classNames from "classnames";
 
 type VolumeProps = {
-  audio: HTMLAudioElement | null;
+  audioRef: RefObject<HTMLAudioElement>;
 };
 
-const Volume = ({ audio }: VolumeProps) => {
+const Volume = ({ audioRef }: VolumeProps) => {
   const [volume, setVolume] = useState(0.5);
 
   useEffect(() => {
-    if (audio) {
-      audio.volume = volume;
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
     }
-  }, [volume, audio]);
+  }, [volume, audioRef.current]);
 
   return (
     <div className={classNames(styles.barVolumeBlock, styles.volume)}>

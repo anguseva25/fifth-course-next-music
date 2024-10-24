@@ -17,18 +17,15 @@ const Filter = ({tracks}: FilterProps) => {
   const uniqueAuthors = getUniqueValues(tracks, "author");
   const uniqueGenre = getUniqueValues(tracks, "genre");
   const handleFilter = (filterName: string) => {
-  setIsActiveFilter((previousFilter) => (previousFilter === filterName ? null : filterName));
+    setIsActiveFilter((previousFilter) => (previousFilter === filterName ? null : filterName));
   }
 
     return (
         <div className={classNames(styles.centerBlockFilter, styles.filter)}>
           <div className={styles.filterTitle}>Искать по:</div>
-          <FilterItem title={"Исполнителю"} isActive={activeFilter === "Исполнителю"} list={uniqueAuthors} handleFilter={handleFilter}/>
-          <FilterItem title={"Году выпуска"} isActive={activeFilter === "Году выпуска"} list={SORT_OPTIONS} handleFilter={handleFilter}/>
-          <FilterItem title={"Жанру"} isActive={activeFilter === "Жанру"} list={uniqueGenre} handleFilter={handleFilter}/>
-            {/*<div className={classNames(styles.filterButton,styles.buttonAuthor,styles._btnText)}>исполнителю</div>*/}
-            {/*<div className={classNames(styles.filterButton,styles.buttonYear,styles._btnText)}>году выпуска</div>*/}
-            {/*<div className={classNames(styles.filterButton,styles.buttonGenre,styles._btnText)}>жанру</div>*/}
+          <FilterItem filterId="author" title={"Исполнителю"} isActive={activeFilter === "Исполнителю"} list={uniqueAuthors} handleFilter={handleFilter}/>
+          <FilterItem filterId="year" title={"Году выпуска"} isActive={activeFilter === "Году выпуска"} list={SORT_OPTIONS} handleFilter={handleFilter}/>
+          <FilterItem filterId="genre" title={"Жанру"} isActive={activeFilter === "Жанру"} list={uniqueGenre} handleFilter={handleFilter}/>
         </div>
     )
 }

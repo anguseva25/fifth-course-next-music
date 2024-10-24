@@ -1,14 +1,13 @@
 import {fetchWithAuth} from "@/utilities/fetchWithAuth";
-import {TrackType} from "@/types/track";
+import {CatalogueDataType, TrackType} from "@/types/track";
 
 const hostGet = "https://webdev-music-003b5b991590.herokuapp.com/catalog";
 
 export async function getAllTracks(): Promise<TrackType[]> {
-  const res = await fetch(`${hostGet}/track/all/`,{
-    method: "GET"})
+  const res = await fetch(`${hostGet}/track/all/`)
   const data = await res.json()
 
-  if(!res.ok) {
+  if (!res.ok) {
     throw new Error("Словил ошибку на сервере");
   }
 
@@ -81,3 +80,16 @@ export const fetchFavoriteTracks = async (accessToken: string) => {
     throw error;
   }
 };
+
+
+export async function fetchCatalogue(id: string): Promise<CatalogueDataType> {
+  const res = await fetch(`${hostGet}/selection/${id}`);
+  const data = await res.json()
+
+  if (!res.ok) {
+    throw new Error("Словил ошибку на сервере");
+  }
+
+  return data.data;
+}
+

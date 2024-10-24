@@ -15,3 +15,10 @@ export type TrackType = {
 };
 
 export type TrackListType = TrackType[];
+
+export type CatalogueDataType = {
+  name: string,
+  items: number[],
+};
+
+export type SortOptions = "" | "возр" | "убыв";

@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default async function Home({children}: Readonly<Props>) {
-
   return (
     <div className="wrapper">
       <div className="container">

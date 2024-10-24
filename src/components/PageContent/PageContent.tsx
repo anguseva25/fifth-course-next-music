@@ -16,7 +16,7 @@ type Props = {
 
 export default function PageContent({allTracks, tracks, errMessage, title}: Props) {
   const dispatch = useDispatch();
-  const {visiblePlaylist} = useAppSelector((state) => state.playlist);
+  const {visiblePlaylist, filteredTracks} = useAppSelector((state) => state.playlist);
 
   useEffect(() => {
     if (allTracks)
@@ -28,7 +28,7 @@ export default function PageContent({allTracks, tracks, errMessage, title}: Prop
     <>
       <h2 className="centerblock__h2">{title}</h2>
       <Filter tracks={visiblePlaylist}/>
-      <PlayList errors={errMessage} tracks={visiblePlaylist}/>
+      <PlayList errors={errMessage} tracks={filteredTracks}/>
     </>
   );
 }
