@@ -1,4 +1,4 @@
-import {RefObject, useEffect, useState} from "react";
+import React, {RefObject, useEffect, useState} from "react";
 import styles from "@/components/Volume/Volume.module.css";
 import classNames from "classnames";
 
@@ -39,4 +39,4 @@ const Volume = ({ audioRef }: VolumeProps) => {
   )
 }
 
-export default Volume
+export default React.memo(Volume)
